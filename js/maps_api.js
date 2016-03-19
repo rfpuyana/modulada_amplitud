@@ -24,8 +24,6 @@ function initMap() {
             infowindow: null
         });
         
-        
-        //var sc_track_ID = 252443522;
         var contentString =
             '<div id="content">' +
             '<div id="siteNotice">' +
@@ -37,7 +35,6 @@ function initMap() {
         
         
         array_infoWindows[array_pos] = new google.maps.InfoWindow({
-           // content: contentString
             content: my_markers[array_pos].soundcloud
         });    
               

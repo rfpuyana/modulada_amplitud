@@ -41,8 +41,6 @@ function initMap() {
         array_infoWindows[a] = new google.maps.InfoWindow({
             content: array_markers[a].soundcloud
         });    
-              
-       
         
     };
     

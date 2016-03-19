@@ -25,11 +25,13 @@ Day 2
 
 Since this is also my first project with GitHUb I was trying to have a Testing branch to receive from other branches in order to test and then publish to Production (master).
 
+
 I faced my first merge conflict so dealing with that shit at the moment.  
 
 https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/
   
 Day 1.
+
 
 Created the proyect Key for the Google  Maps API without issue.  
 
@@ -62,7 +64,5 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 
 CLASSES
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects
-
-
 
 # About the Project

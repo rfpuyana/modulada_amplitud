@@ -6,15 +6,32 @@ This repository contains the web view of the Modulada Amplitud archive.
 
 This is the first time I deal with the Google Maps API so this log is a repository for similar implementations in the future. Since my programming level reaches only the basis I am including a list of Google Maps APi related notes as well as Javascrip basic concepts learnt in the process.
 
-Mar 18
+Day 3
+So I wasn’t able to make the thing work with Closures but then I stumbled a note about the forEach array method.   
+  
+```javascript
+    function assignListeners(marker) {
+        marker.addListener('click', function() {
+            array_infoWindows[marker.posInArray].open(map, marker);
+        });                
+    }    
 
-Since this is also my first project with GitHUb I was trying to have a Testing branch to receive from other branches in order to test and then publish to Porduction (master).
+    array_markers.forEach(assignListeners);
+```
+
+I had to create a property inside markers called posInArray. I tried retrieving the position of the item in the array but once it goes to the forEach it losts that property. 
+
+Day 2
+
+Since this is also my first project with GitHUb I was trying to have a Testing branch to receive from other branches in order to test and then publish to Production (master).
+
 
 I faced my first merge conflict so dealing with that shit at the moment.  
 
 https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/
   
-Mar 17.
+Day 1.
+
 
 Created the proyect Key for the Google  Maps API without issue.  
 
@@ -47,13 +64,5 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 
 CLASSES
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects
-
-
-
-
-
-
-
-
 
 # About the Project

@@ -4,9 +4,13 @@ var map;
 var array_markers = [];
 var array_infoWindows = [];
 
+// custom functions
+
+function closeInfoWindow(infoWindow){
+    infoWindow.close();
+}
+
 // Google Maps functions
-
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 11.25378, lng: -73.54848},
@@ -39,23 +43,22 @@ function initMap() {
         
         
         array_infoWindows[a] = new google.maps.InfoWindow({
-            content: array_markers[a].soundcloud
+            //content: array_markers[a].soundcloud
+            content: contentString
         });    
         
     };
     
+    
     function assignListeners(marker) {
         marker.addListener('click', function() {
-            array_infoWindows[marker.posInArray].open(map, marker);
+            array_infoWindows.forEach(closeInfoWindow);
+            array_infoWindows[marker.posInArray].open(map, marker); // posInArray is a custom property that stores the position in the array of each marker in array_markers
         });                
     }    
 
-    array_markers.forEach(assignListeners);
-/*    
-    array_markers[0].addListener('click', function() {
-        array_infoWindows[0].open(map, array_markers[0]);
-    });        
-*/
+    array_markers.forEach(assignListeners); // The forEach method seems to fix the issues with closures while assigning the Listener to each infoWindow
+    
 };
 
 

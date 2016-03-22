@@ -6,6 +6,11 @@ This repository contains the web view of the Modulada Amplitud archive.
 
 This is the first time I deal with the Google Maps API so this log is a repository for similar implementations in the future. Since my programming level reaches only the basis I am including a list of Google Maps APi related notes as well as Javascrip basic concepts learnt in the process.
 
+Day 4
+
+From this point on I need to leave my audio files clean and ready in Soundcloud. That will take a bit.
+
+
 Day 3
 So I wasn’t able to make the thing work with Closures but then I stumbled a note about the forEach array method.   
   
@@ -59,7 +64,10 @@ It seems the issue is about the concept of closures. I am totally new to the con
 CLOSURES:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures  
  
-   
+This example relates exactly to the issue with Google Maps.
+http://stackoverflow.com/questions/27794288/cannot-read-property-open-of-undefined-google-maps-infowindow-loop
+
+
  As usual I had to review my concepts for dealing with classes:  
 
 CLASSES

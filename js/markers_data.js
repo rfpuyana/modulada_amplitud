@@ -7,15 +7,16 @@ var markers_data = [
     [1.143870, -77.154689, "Laguna de la Cocha, Nariño, Colombia. Junio 06 2015 ", "267142220"],
     [1.189735, -76.973433, "Colón, Putumayo. Junio 13 - 2015", "267140734"],
     [6.144687, -75.374654, "Rio Negro, Antioquia, Colombia. Diciembre 28 - 2015 ", "267147660"],
+    [11.252229, -73.540585, "Palomino, Guajira, Colombia. ", "267174698"],
 
 // Mexico
     [23.446006, -109.424981, "2015 - 09 - 28 - Cabo Pulmo,Baja California, Mexico", "267148080"],
-    [19.448360, -99.154621, "2015 - 09 - 28 - Santa María la Ribera, Ciudad de México, México", "267148080"],
+    [19.448360, -99.154621, "2015 - 09 - 28 - Santa María la Ribera, Ciudad de México, México", "267164188"],
 
 // US
-    [29.7317796,-95.4147422, "Houston, USA", "267164188"],
+    [29.7317796,-95.4147422, "Houston, USA", "267159448"],
 
 // ASIA
-    [6.900756, 79.851066, "Colombo, Sri Lanka", "267164188"]
+    [6.900756, 79.851066, "Colombo, Sri Lanka", "267165758"]
 
 ];

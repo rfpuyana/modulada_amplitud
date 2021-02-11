@@ -3,7 +3,7 @@
 
 <head>
   <meta charset='utf-8' />
-  <title></title>
+  <title>MODULADA AMPLITUD</title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 
@@ -122,7 +122,6 @@
           delimiter: ','
         }, function (err, data) {
           map.on('load', function () {
-
             //Add the the layer to the map
             map.addLayer({
               'id': 'csvData',
@@ -146,8 +145,19 @@
               //set popup text
               //You can adjust the values of the popup to match the headers of your CSV.
               // For example: e.features[0].properties.Name is retrieving information from the field Name in the original CSV.
-              var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Address: ` + `</b>` + e.features[0].properties.Address + `</h4>` + `<h4>` + `<b>` + `Phone: ` + `</b>` + e.features[0].properties.Phone + `</h4>`;
 
+              // var description = e.features[0].properties.EmbedCode
+
+              var description ='<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'+e.features[0].properties.EmbedCode+'&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"></div>'
+
+               console.log(coordinates)
+               console.log(e.features[0].properties.EmbedCode)
+               console.log(e.features[0].properties.Name)
+               console.log(e.features[0].properties.Latitude)
+               console.log(e.features[0].properties.Longitude)
+
+              // var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Address: ` + `</b>` + e.features[0].properties.Address + `</h4>` + `<h4>` + `<b>` + `Phone: ` + `</b>` + e.features[0].properties.Phone + `</h4>`;
+              // var description =
               // Ensure that if the map is zoomed out such that multiple
               // copies of the feature are visible, the popup appears
               // over the copy being pointed to.

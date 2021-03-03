@@ -3,7 +3,9 @@
 
 <head>
   <meta charset='utf-8' />
+  <!-- ESTA LINEA ES CLAVE PARA QUE FUNCIONE EN MOBILES -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--  -->
   <title>MODULADA AMPLITUD</title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
@@ -144,7 +146,7 @@
                 'data': data
               },
               'paint': {
-                'circle-radius': 40,
+                'circle-radius': 20,
                 'circle-color': "white"
               }
             });
@@ -161,7 +163,10 @@
             // location of the feature, with description HTML from its properties.
             map.on('click', 'csvData', function (e) {
               var coordinates = e.features[0].geometry.coordinates.slice();
-
+              // !_! Este JumpTp lo Metí para que se mueva un poco hacia arriba y se vea en mobile
+              map.jumpTo({
+                center: [coordinates[0],coordinates[1]-0.0005],
+              });
               //set popup text
               //You can adjust the values of the popup to match the headers of your CSV.
               // For example: e.features[0].properties.Name is retrieving information from the field Name in the original CSV.

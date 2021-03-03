@@ -131,6 +131,7 @@
           delimiter: ','
         }, function (err, data) {
           map.on('load', function () {
+
             // !_!
             // console.log(data)
             //Add the the layer to the map
@@ -142,10 +143,17 @@
                 'data': data
               },
               'paint': {
-                'circle-radius': 5,
+                'circle-radius': 10,
                 'circle-color': "purple"
               }
             });
+            //
+            var NumeroRandom = Math.floor(Math.random()*data['features'].length)
+            var coordinates=data['features'][NumeroRandom]['geometry']['coordinates']
+            var zoom = data['features'][NumeroRandom]['properties']['zoom']
+            map.flyTo({center: coordinates, zoom: 90});
+            // CargarRandomPoint(map,data);
+            //
             map.addControl(new mapboxgl.NavigationControl());
 
             // When a click event occurs on a feature in the csvData layer, open a popup at the
@@ -198,9 +206,7 @@
 
             var bbox = turf.bbox(data);
             // map.fitBounds(bbox, { padding: 50 });
-            // Al meter este FlyTo puedo llevarlo a algun punto random
-            CargarRandomPoint(map,data);
-            // map.flyTo({center: [100, 0], zoom: 90});
+
           });
 
         });

@@ -9,8 +9,6 @@
   <title>MODULADA AMPLITUD</title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
-
-
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 
@@ -51,7 +49,7 @@
     }
 
     .mapboxgl-popup-content h3 {
-      background: rgb(61, 59, 59);
+      /* background: rgb(61, 59, 59); */
       text-align: center;
       color: #FF00CC;
       margin: 0;
@@ -79,10 +77,35 @@
     .mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
       border-bottom-color: rgb(61, 59, 59);
     }
+    /* !_! overlay */
+    #overlay {
+      display: none;
+      background-image: url("https://f4.bcbits.com/img/a1254629576_16.jpg");
+      /* background: blue; */
+      opacity: 1;
+      position: absolute;
+      float: left;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 200;
+      width: 350px;
+      height:442px;
+    }
+    #iframeId {
+      z-index: 100;
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- !_!  popup externo a mapbox-->
+  <div id="overlay">
+        <div id = "iframeId">
+          <iframe style="border: 0; width: 350px; height: 442px;" src="https://bandcamp.com/EmbeddedPlayer/track=1685839261/size=large/bgcol=ffffff/linkcol=e99708/tracklist=false/transparent=false/" seamless><a href="https://rafapuyana.bandcamp.com/track/los-barrios-peligrosos">Los Barrios Peligrosos by Rafa Puyana</a></iframe>
+        </div>
+  </div>
 
   <div id='map'></div>
   <script>
@@ -94,7 +117,16 @@
         zoom = data['features'][NumeroRandom]['properties']['zoom']
         map.flyTo({center: coordinates, zoom: 90});
     }
+   // !_! Overlay JS
 
+   function OverlayOn() {
+     document.getElementById("overlay").style.display = "block";
+     // document.getElementById("art").style.display = "block";
+   }
+
+   function OverlayOff() {
+     document.getElementById("overlay").style.display = "none";
+   }
 
     var transformRequest = (url, resourceType) => {
       var isMapboxRequest =
@@ -163,11 +195,13 @@
             // When a click event occurs on a feature in the csvData layer, open a popup at the
             // location of the feature, with description HTML from its properties.
             map.on('click', 'csvData', function (e) {
+              OverlayOn();
               var coordinates = e.features[0].geometry.coordinates.slice();
-              // !_! Este JumpTp lo Metí para que se mueva un poco hacia arriba y se vea en mobile
-              map.jumpTo({
-                center: [coordinates[0],coordinates[1]-0.0008],
-              });
+              // // !_! Este JumpTp lo Metí para que se mueva un poco hacia arriba y se vea en mobile
+              // BORRAR CANTIDATE
+              // map.jumpTo({
+              //   center: [coordinates[0],coordinates[1]-0.0008],
+              // });
               //set popup text
               //You can adjust the values of the popup to match the headers of your CSV.
               // For example: e.features[0].properties.Name is retrieving information from the field Name in the original CSV.
@@ -176,11 +210,11 @@
 
               // var description ='<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'+e.features[0].properties.EmbedCode+'&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"></div>'
 
-              var description = '<iframe style="border: 0; width: 100%; height: 350px;" src="https://bandcamp.com/EmbeddedPlayer/track=1685839261/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://rafapuyana.bandcamp.com/track/barrios-peligrosos">Barrios Peligrosos by Rafa Puyana</a></iframe>'
+              // var description = '<iframe style="border: 0; width: 100%; height: 350px;" src="https://bandcamp.com/EmbeddedPlayer/track=1685839261/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://rafapuyana.bandcamp.com/track/barrios-peligrosos">Barrios Peligrosos by Rafa Puyana</a></iframe>'
 
                // console.log(coordinates)
                // console.log(e.features[0].properties.EmbedCode)
-               console.log(e.features[0].properties.Name)
+               // console.log(e.features[0].properties.Name)
                // console.log(e.features[0].properties.Latitude)
                // console.log(e.features[0].properties.Longitude)
 
@@ -189,42 +223,34 @@
               // Ensure that if the map is zoomed out such that multiple
               // copies of the feature are visible, the popup appears
               // over the copy being pointed to.
-              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-              }
+              // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              // }
 
               //add Popup to map
 
-              new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map);
-            });
+              // new mapboxgl.Popup()
+              //   .setLngLat(coordinates)
+              //   .setHTML(description)
+              //   .addTo(map);
+              });
 
-            // Change the cursor to a pointer when the mouse is over the places layer.
-            map.on('mouseenter', 'csvData', function () {
-              map.getCanvas().style.cursor = 'pointer';
-            });
+              // Change the cursor to a pointer when the mouse is over the places layer.
+              map.on('mouseenter', 'csvData', function () {
+                map.getCanvas().style.cursor = 'pointer';
+              });
 
-            // Change it back to a pointer when it leaves.
-            map.on('mouseleave', 'places', function () {
-              map.getCanvas().style.cursor = '';
-            });
+              // Change it back to a pointer when it leaves.
+              map.on('mouseleave', 'places', function () {
+                map.getCanvas().style.cursor = '';
+              });
 
-            var bbox = turf.bbox(data);
-            // map.fitBounds(bbox, { padding: 50 });
-
+              var bbox = turf.bbox(data);
+              // map.fitBounds(bbox, { padding: 50 });
           });
-
         });
       };
     });
-
-
-
-
   </script>
-
 </body>
-
 </html>

@@ -103,7 +103,7 @@
   <!-- !_!  popup externo a mapbox-->
   <div id="overlay">
         <div id = "iframeId">
-          <iframe style="border: 0; width: 350px; height: 442px;" src="https://bandcamp.com/EmbeddedPlayer/track=1685839261/size=large/bgcol=ffffff/linkcol=e99708/tracklist=false/transparent=false/" seamless><a href="https://rafapuyana.bandcamp.com/track/los-barrios-peligrosos">Los Barrios Peligrosos by Rafa Puyana</a></iframe>
+          <iframe id = "iframe_content" style="border: 0; width: 350px; height: 442px;" src="https://bandcamp.com/EmbeddedPlayer/track=1685839261/size=large/bgcol=ffffff/linkcol=e99708/tracklist=false/transparent=false&output=embed" seamless><a href="https://rafapuyana.bandcamp.com/track/los-barrios-peligrosos">Los Barrios Peligrosos by Rafa Puyana</a></iframe>
         </div>
   </div>
 
@@ -117,16 +117,29 @@
         zoom = data['features'][NumeroRandom]['properties']['zoom']
         map.flyTo({center: coordinates, zoom: 90});
     }
-   // !_! Overlay JS
 
+    // !_! Función que cambia el Iframe
+    function newSite(IdFromData) {
+        console.log(IdFromData+"!_!")
+        // sites = "https://bandcamp.com/EmbeddedPlayer/album=2466052491/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track="+IdFromData+"/transparent=true/"
+        sites = "https://bandcamp.com/EmbeddedPlayer/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track="+IdFromData+"/transparent=true/"
+
+// <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=2466052491/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3175365559/transparent=true/" seamless><a href="https://rafapuyana.bandcamp.com/album/modulada-amplitud">Modulada Amplitud by Rafael Puyana</a></iframe>
+        document.getElementById('iframe_content').src = sites;
+    }
+    // ----
+
+   // !_! Overlay JS
    function OverlayOn() {
      document.getElementById("overlay").style.display = "block";
-     // document.getElementById("art").style.display = "block";
+
    }
 
    function OverlayOff() {
      document.getElementById("overlay").style.display = "none";
    }
+
+
 
     var transformRequest = (url, resourceType) => {
       var isMapboxRequest =
@@ -188,7 +201,8 @@
             var coordinates=data['features'][NumeroRandom]['geometry']['coordinates']
             var zoom = data['features'][NumeroRandom]['properties']['zoom']
             map.flyTo({center: coordinates, zoom: 90});
-            // CargarRandomPoint(map,data);
+            // !_!
+            newSite(data['features'][NumeroRandom]['properties']['EmbedCode'])
             //
             map.addControl(new mapboxgl.NavigationControl());
 

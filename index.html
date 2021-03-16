@@ -80,8 +80,12 @@
     /* !_! overlay */
     #overlay {
       display: none;
-      background-image: url("https://f4.bcbits.com/img/a1254629576_16.jpg");
-      /* background: blue; */
+      background-image: url("/assets/images/track_thumbs/2.jpg");
+      /*  !_! Estas lineas son para hacer que el fondo del player quede FIT y no se repita */
+      background-size:     cover;
+      background-repeat:   no-repeat;
+      background-position: center center;
+      /*  --------  */
       opacity: 1;
       position: absolute;
       float: left;
@@ -110,24 +114,23 @@
   <div id='map'></div>
   <script>
      // !_! Rafa
-     // Esta funcion hace flyTo a un punto al azar. Estos puntos estan creados y cargados abajo
+
+     // Esta funcion hace FlyTo a un punto al azar. Estos puntos estan creados y cargados abajo
     var CargarRandomPoint = (map,data) => {
         NumeroRandom = Math.floor(Math.random()*data['features'].length)
         coordinates=data['features'][NumeroRandom]['geometry']['coordinates']
         zoom = data['features'][NumeroRandom]['properties']['zoom']
-        map.flyTo({center: coordinates, zoom: 90});
+        map.flyTo({center: coordinates, zoom: 1});
     }
 
     // !_! Función que cambia el Iframe
-    function newSite(IdFromData) {
-        console.log(IdFromData+"!_!")
-        // sites = "https://bandcamp.com/EmbeddedPlayer/album=2466052491/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track="+IdFromData+"/transparent=true/"
-        sites = "https://bandcamp.com/EmbeddedPlayer/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track="+IdFromData+"/transparent=true/"
+    function LoadIframe(EmbedCode,IframeBg) {
+        TrackID = "https://bandcamp.com/EmbeddedPlayer/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track="+EmbedCode+"/transparent=true/"
+        console.log(IframeBg)
+        document.getElementById('iframe_content').src = TrackID;
+        document.getElementById('overlay').style.backgroundImage="url(/assets/images/thumbs/"+IframeBg+")"; // specify the image path here
 
-// <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=2466052491/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3175365559/transparent=true/" seamless><a href="https://rafapuyana.bandcamp.com/album/modulada-amplitud">Modulada Amplitud by Rafael Puyana</a></iframe>
-        document.getElementById('iframe_content').src = sites;
     }
-    // ----
 
    // !_! Overlay JS
    function OverlayOn() {
@@ -139,8 +142,6 @@
      document.getElementById("overlay").style.display = "none";
    }
 
-
-
     var transformRequest = (url, resourceType) => {
       var isMapboxRequest =
         url.slice(8, 22) === "api.mapbox.com" ||
@@ -151,12 +152,12 @@
           : url
       };
     };
+
     // YOUR TURN:
-    mapboxgl.accessToken = 'pk.eyJ1IjoicmZwdXlhbmEiLCJhIjoiY2trenplcmd6MDd2cTJvcnhxdWV6MnN0MiJ9.CNMZ9ikFZOe4-EDjtjinBw'; //Mapbox token
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmZwdXlhbmEiLCJhIjoiY2syNWF1ajFkMDJ5aDNkdGJiOXR0a2h3eCJ9.LaDtd2ltMRhirpaxuoU8aA'; //Mapbox token
     var map = new mapboxgl.Map({
       container: 'map', // container id
-      style: 'mapbox://styles/mapbox/dark-v10', // YOUR TURN: choose a style: https://docs.mapbox.com/api/maps/#styles
-      // https://www.google.com/maps/place/Quebrada+las+Delicias/@4.6365348,-74.0560484,16
+      style: 'mapbox://styles/mapbox/streets-v11', // YOUR TURN: choose a style: https://docs.mapbox.com/api/maps/#styles
       center: [4.6365348,-74.0560484], // starting position [lng, lat]
       zoom: 1,// starting zoom
       transformRequest: transformRequest
@@ -170,7 +171,6 @@
         dataType: "text",
         success: function (csvData) { makeGeoJSON(csvData); }
       });
-
 
 
       function makeGeoJSON(csvData) {
@@ -202,7 +202,7 @@
             var zoom = data['features'][NumeroRandom]['properties']['zoom']
             map.flyTo({center: coordinates, zoom: 90});
             // !_!
-            newSite(data['features'][NumeroRandom]['properties']['EmbedCode'])
+            LoadIframe(data['features'][NumeroRandom]['properties']['EmbedCode'],data['features'][NumeroRandom]['properties']['thumb'])
             //
             map.addControl(new mapboxgl.NavigationControl());
 
@@ -211,42 +211,6 @@
             map.on('click', 'csvData', function (e) {
               OverlayOn();
               var coordinates = e.features[0].geometry.coordinates.slice();
-              // // !_! Este JumpTp lo Metí para que se mueva un poco hacia arriba y se vea en mobile
-              // BORRAR CANTIDATE
-              // map.jumpTo({
-              //   center: [coordinates[0],coordinates[1]-0.0008],
-              // });
-              //set popup text
-              //You can adjust the values of the popup to match the headers of your CSV.
-              // For example: e.features[0].properties.Name is retrieving information from the field Name in the original CSV.
-
-              // var description = e.features[0].properties.EmbedCode
-
-              // var description ='<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'+e.features[0].properties.EmbedCode+'&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"></div>'
-
-              // var description = '<iframe style="border: 0; width: 100%; height: 350px;" src="https://bandcamp.com/EmbeddedPlayer/track=1685839261/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://rafapuyana.bandcamp.com/track/barrios-peligrosos">Barrios Peligrosos by Rafa Puyana</a></iframe>'
-
-               // console.log(coordinates)
-               // console.log(e.features[0].properties.EmbedCode)
-               // console.log(e.features[0].properties.Name)
-               // console.log(e.features[0].properties.Latitude)
-               // console.log(e.features[0].properties.Longitude)
-
-              // var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Address: ` + `</b>` + e.features[0].properties.Address + `</h4>` + `<h4>` + `<b>` + `Phone: ` + `</b>` + e.features[0].properties.Phone + `</h4>`;
-              // var description =
-              // Ensure that if the map is zoomed out such that multiple
-              // copies of the feature are visible, the popup appears
-              // over the copy being pointed to.
-              // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-              //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-              // }
-
-              //add Popup to map
-
-              // new mapboxgl.Popup()
-              //   .setLngLat(coordinates)
-              //   .setHTML(description)
-              //   .addTo(map);
               });
 
               // Change the cursor to a pointer when the mouse is over the places layer.

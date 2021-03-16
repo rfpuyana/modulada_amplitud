@@ -157,7 +157,7 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoicmZwdXlhbmEiLCJhIjoiY2syNWF1ajFkMDJ5aDNkdGJiOXR0a2h3eCJ9.LaDtd2ltMRhirpaxuoU8aA'; //Mapbox token
     var map = new mapboxgl.Map({
       container: 'map', // container id
-      style: 'mapbox://styles/mapbox/streets-v11', // YOUR TURN: choose a style: https://docs.mapbox.com/api/maps/#styles
+      style: 'mapbox://styles/rfpuyana/cklsxitho1dl317op3p6blwn9', // YOUR TURN: choose a style: https://docs.mapbox.com/api/maps/#styles
       center: [4.6365348,-74.0560484], // starting position [lng, lat]
       zoom: 1,// starting zoom
       transformRequest: transformRequest
@@ -169,7 +169,7 @@
         //YOUR TURN: Replace with csv export link
         url: 'https://docs.google.com/spreadsheets/d/1nJeCdVvaIFnmTGz_bcZfD69PLP3uG4V_Ed16dFo5-hs/gviz/tq?tqx=out:csv&sheet=ASIA-EUR',
         dataType: "text",
-        success: function (csvData) { makeGeoJSON(csvData); }
+        success: function (csvData) { makeGeoJSON(csvData); console.log("data loaded") }
       });
 
 
